@@ -32,15 +32,17 @@ router.post('/', validateUser, (req, res) => {
     .catch(err => res.status(500).json({message: "Error"}));
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validateUserId, validateUser, (req, res) => {
   // RETURN THE FRESHLY UPDATED USER OBJECT
   // this needs a middleware to verify user id
   // and another middleware to check that the request body is valid
+  return null;
 });
 
 router.delete('/:id', (req, res) => {
   // RETURN THE FRESHLY DELETED USER OBJECT
   // this needs a middleware to verify user id
+  return null;
 });
 
 router.get('/:id/posts', validateUserId, (req, res) => {
@@ -57,7 +59,7 @@ router.post('/:id/posts', validateUserId, validatePost, (req, res) => {
   // RETURN THE NEWLY CREATED USER POST
   // this needs a middleware to verify user id
   // and another middleware to check that the request body is valid
-  Post.insert(req.body)
+  Post.insert({...req.body, user_id: req.params.id})
     .then(post => {
       res.status(201).json(post)
     })
