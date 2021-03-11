@@ -40,7 +40,15 @@ function validateUser(req, res, next) {
 
 function validatePost(req, res, next) {
   // DO YOUR MAGIC
+  const post = req.body
+  if(Object.keys(post).length === 0) {
+    res.status(400).json({message: "missing post data" });
+  } else if (!post.text || !post.user_id) {
+    res.status(400).json({message: "missing required text or user_id fields" });
+  } else {
+    next()
+  }
 }
 
 // do not forget to expose these functions to other modules
-module.exports = {logger, validateUserId, validateUser};
+module.exports = {logger, validateUserId, validateUser, validatePost};
