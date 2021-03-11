@@ -1,5 +1,11 @@
 function logger(req, res, next) {
   // DO YOUR MAGIC
+  console.log({
+    method: req.method,
+    url: req.url,
+    timestamp: Date.now()
+  });
+  next();
 }
 
 function validateUserId(req, res, next) {
@@ -15,3 +21,4 @@ function validatePost(req, res, next) {
 }
 
 // do not forget to expose these functions to other modules
+module.exports = {logger};
